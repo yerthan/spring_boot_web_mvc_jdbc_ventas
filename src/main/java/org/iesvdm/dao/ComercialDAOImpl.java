@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
+import org.iesvdm.dto.ClienteDTO;
 import org.iesvdm.dto.ComercialDTO;
 import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
@@ -150,6 +151,30 @@ public class ComercialDAOImpl implements ComercialDAO {
 
 		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<ComercialDTO>(ComercialDTO.class), id);
 
+	}
+
+	@Override
+	public int getCantidadPedidos(int id_comercial) {
+		String sql = "SELECT COUNT(*) from comercial " +
+				"JOIN ventas.pedido p ON comercial.id = p.id_comercial " +
+				" WHERE comercial.id = ?";
+
+
+		Integer cantidad = jdbcTemplate.queryForObject(sql, Integer.class, id_comercial);
+		return cantidad != null ? cantidad : 0;
+	}
+
+	@Override
+	public List<ClienteDTO> listaPorCuantia(int codigo) {
+		String query = """
+                SELECT c.nombre, ROUND(SUM(p.total), 2)  AS cuantia
+                                   FROM pedido p
+                                   JOIN cliente c ON c.id = p.id_cliente
+                                   WHERE p.id_comercial = ?
+                                   GROUP BY c.id, c.nombre
+                                   ORDER BY cuantia DESC;
+                """;
+		return  jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ClienteDTO.class), codigo);
 	}
 
 }

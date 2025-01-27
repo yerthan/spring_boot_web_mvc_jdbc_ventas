@@ -21,6 +21,7 @@ public class ClienteDTO {
      private String apellido2;
      private String ciudad;
      private int categoria;
+     private double cuantia;
 
 
  }
