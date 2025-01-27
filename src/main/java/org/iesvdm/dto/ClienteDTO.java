@@ -15,14 +15,12 @@ import java.util.Map;
  @Builder
 public class ClienteDTO {
 
-    private long id;
+     private int id;
+     private String nombre;
+     private String apellido1;
+     private String apellido2;
+     private String ciudad;
+     private int categoria;
 
-    private String nombre;
-    private String apellido1;
-    private String apellido2;
-    private String ciudad;
-    private int categoria;
-    private List<PedidoDTO> pedidos;
-    private Object numeroTotalPedidos;
 
-}
+ }

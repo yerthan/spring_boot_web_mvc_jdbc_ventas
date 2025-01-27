@@ -65,13 +65,50 @@
                 <input class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight" th:value="${comercial.comision}" value="cliente" readonly="readonly"/>
             </div>
         </div>
-
+        <div class="flex flex-row my-0.5">
+            <div class="basis-1/2">
+                <label>Total Pedidos</label>
+            </div>
+            <div class="basis-1/2">
+                <input class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight" th:value="${comercialDTO.totalPedidos}" value="cliente" readonly="readonly"/>
+            </div>
+        </div>
+        <div class="flex flex-row my-0.5">
+            <div class="basis-1/2">
+                <label>Media Pedidos</label>
+            </div>
+            <div class="basis-1/2">
+                <input class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight" th:value="${comercialDTO.mediaPedidos}" value="cliente" readonly="readonly"/>
+            </div>
+        </div>
+        <div class="mt-4 p-3 bg-light border rounded">
+            <h3>Leyenda de colores:</h3>
+            <ul class="list-unstyled">
+                <li>
+                    <span class="badge bg-success text-white">Verde</span> - Pedido con el total más alto.
+                </li>
+                <li>
+                    <span class="badge bg-warning">Amarillo</span> - Pedido con el total más bajo.
+                </li>
+                <li>
+                    <span class="badge bg-secondary">Gris</span> - Resto de los pedidos.
+                </li>
+            </ul>
+        </div>
         <div class="form-group">
             <h2>Pedidos del comercial</h2>
-            <div th:each="pedido : ${listaPedidos}" class="mb-3">
+            <div th:each="pedido : ${listaPedidoDTO}" class="mb-3">
                 <div class="form-group">
                     <label th:text="#{msg.idOrder.order}">ID Pedido</label>
                     <input type="text" th:value="${pedido.id}" class="form-control" readonly/>
+                </div>
+
+                <div class="form-group">
+                    <input
+                            type="text"
+                            th:value="${#numbers.formatDecimal(pedido.total, 1, 2)}"
+                            th:class="${pedido.id == max.id ? 'bg-success text-white' : (pedido.id == min.id ? 'bg-warning' : '')} + ' form-control'"
+                            readonly="readonly">
                 </div>
 
                 <div class="form-group">
@@ -89,12 +126,14 @@
                 </div>
             </div>
         </div>
+
         <div class="form-group text-center">
             <form action="/comercial">
                 <button type="submit" class="btn btn-secondary">Volver</button>
             </form>
         </div>
     </div>
+
     </body>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

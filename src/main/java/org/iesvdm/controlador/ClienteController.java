@@ -3,7 +3,7 @@ package org.iesvdm.controlador;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
-import org.iesvdm.mapper.ClienteMapper;
+//import org.iesvdm.mapper.ClienteMapper;
 import org.iesvdm.modelo.Cliente;
 import org.iesvdm.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,8 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteService clienteService;
-	private ClienteMapper clienteMapper;
+
+	//private ClienteMapper clienteMapper;
 	//Se utiliza inyección automática por constructor del framework Spring.
 	//Por tanto, se puede omitir la anotación Autowired
 	//@Autowired

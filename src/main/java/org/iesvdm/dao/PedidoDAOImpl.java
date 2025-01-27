@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.dto.PedidoDTO;
 import org.iesvdm.modelo.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -110,13 +111,15 @@ public class PedidoDAOImpl implements PedidoDAO {
     }
 
     @Override
-    public List<PedidoDTO> filterByClienteId(int id) {
-        List<PedidoDTO> lista = jdbcTemplate.query(
+    public List<Pedido> filterByClienteId(int id) {
+        List<Pedido> lista = jdbcTemplate.query(
                 "SELECT * FROM pedido WHERE id_cliente = ?",
-                (rs, rowNum) -> new PedidoDTO(
+                (rs, rowNum) -> new Pedido(
                         rs.getInt("id"),
+                        rs.getDouble("total"),
                         rs.getDate("fecha"),
-                        rs.getDouble("total")
+                        rs.getInt("id_cliente"),
+                        rs.getInt("id_comercial")
                 ), id
 
         );
@@ -125,18 +128,28 @@ public class PedidoDAOImpl implements PedidoDAO {
     }
 
     @Override
-    public List<PedidoDTO> filterByComercialId(int id) {
-        List<PedidoDTO> lista = jdbcTemplate.query(
+    public List<Pedido> filterByComercialId(int id) {
+        List<Pedido> lista = jdbcTemplate.query(
                 "SELECT * FROM pedido WHERE id_comercial = ?",
 
-                (rs, rowNum) -> new PedidoDTO(
+                (rs, rowNum) -> new Pedido(
                         rs.getInt("id"),
+                        rs.getDouble("total"),
                         rs.getDate("fecha"),
-                        rs.getDouble("total")
+                        rs.getInt("id_cliente"),
+                        rs.getInt("id_comercial")
                 ), id
 
         );
 
         return lista;
     }
+
+    @Override
+    public List<PedidoDTO> filterByComercialIdDTO(int id) {
+        String sql = "SELECT * FROM pedido WHERE id_comercial = ?";
+
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(PedidoDTO.class), id);
+    }
+
 }

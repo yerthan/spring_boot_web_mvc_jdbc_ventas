@@ -60,25 +60,5 @@ public class ClienteService {
 
 	}
 	
-	public Optional<ClienteDTO> obtenerClientePorId(int id) {
-		Optional<Cliente> optionalCliente = clienteDAO.find(id);
 
-		if(optionalCliente.isPresent()){
-			Cliente cliente = optionalCliente.get();
-			List<PedidoDTO> pedidos = pedidoDAO.filterByClienteId(id);
-
-			ClienteDTO clienteDTO =  ClienteDTO.builder()
-					.id(cliente.getId())
-					.nombre(cliente.getNombre())
-					.apellido1(cliente.getApellido1())
-					.apellido2(cliente.getApellido2())
-					.ciudad(cliente.getCiudad())
-					.pedidos(pedidos)
-					.build();
-
-			return Optional.of(clienteDTO);
-		}
-
-		return Optional.empty();
-	}
 }

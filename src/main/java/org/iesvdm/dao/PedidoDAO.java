@@ -18,6 +18,8 @@ public interface PedidoDAO {
 
     public void delete(int id);
 
-    public List<PedidoDTO> filterByClienteId(int id);
-    public List<PedidoDTO> filterByComercialId(int id);
+    List<Pedido> filterByClienteId(int id);
+    List<Pedido> filterByComercialId(int id);
+
+    List<PedidoDTO> filterByComercialIdDTO(int id);
 }
