@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
+
 @Service
 public class ClienteService {
 	@Autowired
@@ -57,8 +59,16 @@ public class ClienteService {
 	@Transactional
 	public void delete(int id) {
 		clienteDAO.delete(id);
-
 	}
-	
+
+	public List<ClienteDTO> datosCliente(int id){
+
+		List<ClienteDTO> clienteDTO = clienteDAO.buscarComercialPorIdCliente(id);
+
+		return clienteDTO;
+	}
+
+
+
 
 }

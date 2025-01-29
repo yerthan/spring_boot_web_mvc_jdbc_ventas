@@ -3,7 +3,7 @@
 <head>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Clientes</title>
+    <title>Comercial</title>
     <style>
         .clearfix::after {
             content: "";
@@ -17,52 +17,41 @@
 </head>
 <body>
 <div class="clearfix">
-    <form th:action="@{/clientes/crear}" th:object="${cliente}" method="post">
+    <form th:action="@{/comercial/crear}" th:object="${comercial}" method="post">
+
         <div>
-            <h1>Crear Cliente</h1>
+            <h1>Crear Comercial</h1>
         </div>
 
         <div class="clearfix">
-            <label for="nombre">Nombre</label>
-            <input id="nombre" th:field="*{nombre}" />
+            <label for="nombre" th:text="#{msg.name.seller}">Nombre</label>
+            <input id="nombre" th:field="*{nombre}" type="text" />
             <ul th:if="${#fields.hasErrors('nombre')}">
                 <li th:each="err : ${#fields.errors('nombre')}" th:text="${err}" class="error"></li>
             </ul>
             <br><br>
 
-            <label for="apellido1">Primer apellido</label>
+            <label for="apellido1" th:text="#{msg.firstSurname.seller}">Primer apellido</label>
             <input id="apellido1" th:field="*{apellido1}" type="text" />
             <ul th:if="${#fields.hasErrors('apellido1')}">
                 <li th:each="err : ${#fields.errors('apellido1')}" th:text="${err}" class="error"></li>
             </ul>
             <br><br>
 
-            <label for="apellido2">Segundo apellido</label>
+            <label for="apellido2" th:text="#{msg.secondSurname.seller}">Segundo apellido</label>
             <input id="apellido2" th:field="*{apellido2}" type="text" />
             <ul th:if="${#fields.hasErrors('apellido2')}">
                 <li th:each="err : ${#fields.errors('apellido2')}" th:text="${err}" class="error"></li>
             </ul>
             <br><br>
 
-            <label for="ciudad">Ciudad</label>
-            <input id="ciudad" th:field="*{ciudad}" type="text" />
-            <ul th:if="${#fields.hasErrors('ciudad')}">
-                <li th:each="err : ${#fields.errors('ciudad')}" th:text="${err}" class="error"></li>
+            <label for="comision" th:text="#{msg.comision.seller}">Comisión</label>
+            <input id="comision" th:field="*{comision}" type="text" />
+            <ul th:if="${#fields.hasErrors('comision')}">
+                <li th:each="err : ${#fields.errors('comision')}" th:text="${err}" class="error"></li>
             </ul>
             <br><br>
 
-            <label for="categoria">Categoría</label>
-            <input id="categoria" th:field="*{categoria}" type="text" />
-            <ul th:if="${#fields.hasErrors('categoria')}">
-                <li th:each="err : ${#fields.errors('categoria')}" th:text="${err}" class="error"></li>
-            </ul>
-            <br><br>
-            <label for="correo">Categoría</label>
-            <input id="correo" th:field="*{correo}" type="email" />
-            <ul th:if="${#fields.hasErrors('correo')}">
-                <li th:each="err : ${#fields.errors('correo')}" th:text="${err}" class="error"></li>
-            </ul>
-            <br><br>
             <div>
                 <button>Guardar</button>
             </div>

@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.iesvdm.dto.ClienteDTO;
 import org.iesvdm.modelo.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -34,8 +36,8 @@ public class ClienteDAOImpl implements ClienteDAO {
 		
 							//Desde java15+ se tiene la triple quote """ para bloques de texto como cadenas.
 		String sqlInsert = """
-							INSERT INTO cliente (nombre, apellido1, apellido2, ciudad, categoria) 
-							VALUES  (     ?,         ?,         ?,       ?,         ?)
+							INSERT INTO cliente (nombre, apellido1, apellido2, ciudad, categoria, correo) 
+							VALUES  (     ?,         ?,         ?,       ?,         ?, ?)
 						   """;
 		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -47,7 +49,8 @@ public class ClienteDAOImpl implements ClienteDAO {
 			ps.setString(idx++, cliente.getApellido1());
 			ps.setString(idx++, cliente.getApellido2());
 			ps.setString(idx++, cliente.getCiudad());
-			ps.setInt(idx, cliente.getCategoria());
+			ps.setInt(idx++, cliente.getCategoria());
+			ps.setString(idx, cliente.getCorreo());
 			return ps;
 		},keyHolder);
 		
@@ -93,7 +96,8 @@ public class ClienteDAOImpl implements ClienteDAO {
                 						 	rs.getString("apellido1"),
                 						 	rs.getString("apellido2"),
                 						 	rs.getString("ciudad"),
-                						 	rs.getInt("categoria")
+                						 	rs.getInt("categoria"),
+											rs.getString("correo")
                 						 	)
         );
 		
@@ -116,7 +120,8 @@ public class ClienteDAOImpl implements ClienteDAO {
             						 						rs.getString("apellido1"),
             						 						rs.getString("apellido2"),
             						 						rs.getString("ciudad"),
-            						 						rs.getInt("categoria"))
+            						 						rs.getInt("categoria"),
+															rs.getString("correo"))
 								, id
 								);
 		
@@ -139,13 +144,15 @@ public class ClienteDAOImpl implements ClienteDAO {
 														apellido1 = ?, 
 														apellido2 = ?,
 														ciudad = ?,
-														categoria = ?  
+														categoria = ?,
+														correo= ? 
 												WHERE id = ?
 										""", cliente.getNombre()
 										, cliente.getApellido1()
 										, cliente.getApellido2()
 										, cliente.getCiudad()
 										, cliente.getCategoria()
+										, cliente.getCorreo()
 										, cliente.getId());
 		
 		log.info("Update de Cliente con {} registros actualizados.", rows);
@@ -163,5 +170,21 @@ public class ClienteDAOImpl implements ClienteDAO {
 		log.info("Delete de Cliente con {} registros eliminados.", rows);		
 		
 	}
-	
+
+	@Override
+	public List<ClienteDTO> buscarComercialPorIdCliente(int id) {
+
+		String query = """
+                SELECT c.nombre, ROUND(SUM(p.total), 2)  AS cuantia
+                                   FROM pedido p
+                                   JOIN cliente c ON c.id = p.id_cliente
+                                   WHERE p.id_comercial = ?
+                                   GROUP BY c.id, c.nombre
+                                   ORDER BY cuantia DESC;
+                """;
+		return  jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ClienteDTO.class), id);
+
+		//return null;
+	}
+
 }

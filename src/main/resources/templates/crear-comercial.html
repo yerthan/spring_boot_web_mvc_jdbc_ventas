@@ -10,7 +10,9 @@
             display: block;
             clear: both;
         }
-
+        .error{
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -24,26 +26,34 @@
         <div class="clearfix">
             <label for="nombre" th:text="#{msg.name.seller}">Nombre</label>
             <input id="nombre" th:field="*{nombre}" type="text" />
-
+            <ul th:if="${#fields.hasErrors('nombre')}">
+                <li th:each="err : ${#fields.errors('nombre')}" th:text="${err}" class="error"></li>
+            </ul>
             <br>
             <br>
 
             <label for="apellido1" th:text="#{msg.firstSurname.seller}">Primer apellido</label>
             <input id="apellido1" th:field="*{apellido1}" type="text" />
-
+            <ul th:if="${#fields.hasErrors('apellido1')}">
+                <li th:each="err : ${#fields.errors('apellido1')}" th:text="${err}" class="error"></li>
+            </ul>
             <br>
             <br>
 
 
             <label for="apellido2" th:text="#{msg.secondSurname.seller}">Segundo apellido</label>
             <input id="apellido2" th:field="*{apellido2}" type="text" />
-
+            <ul th:if="${#fields.hasErrors('apellido2')}">
+                <li th:each="err : ${#fields.errors('apellido2')}" th:text="${err}" class="error"></li>
+            </ul>
             <br>
             <br>
 
             <label for="ciudad" th:text="#{msg.comision.seller}">Comision</label>
             <input id="ciudad" th:field="*{comision}" type="text" />
-
+            <ul th:if="${#fields.hasErrors('comision')}">
+                <li th:each="err : ${#fields.errors('comision')}" th:text="${err}" class="error"></li>
+            </ul>
             <br>
             <br>
 
