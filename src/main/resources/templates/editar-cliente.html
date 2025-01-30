@@ -40,11 +40,17 @@
             </div>
             <div class="basis-1/2">
                 <input class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight" th:field="*{nombre}"  >
+                <ul th:if="${#fields.hasErrors('nombre')}">
+                    <li th:each="err : ${#fields.errors('nombre')}" th:text="${err}" class="error"></li>
+                </ul>
             </div>
         </div>
         <div class="flex flex-row my-0.5">
             <div class="basis-1/2">
                 <label th:text="#{msg.firstSurname.client}">Apellido1</label>
+                <ul th:if="${#fields.hasErrors('apellido1')}">
+                    <li th:each="err : ${#fields.errors('apellido1')}" th:text="${err}" class="error"></li>
+                </ul>
             </div>
             <div class="basis-1/2">
                 <input class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight" th:field="*{apellido1}"/>
@@ -53,6 +59,9 @@
         <div class="flex flex-row my-0.5">
             <div class="basis-1/2">
                 <label th:text="#{msg.secondSurname.client}">Apellido 2</label>
+                <ul th:if="${#fields.hasErrors('apellido2')}">
+                    <li th:each="err : ${#fields.errors('apellido2')}" th:text="${err}" class="error"></li>
+                </ul>
             </div>
             <div class="basis-1/2">
                 <input class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight" th:field="*{apellido2}"/>
@@ -60,6 +69,9 @@
             <div class="flex flex-row my-0.5">
                 <div class="basis-1/2">
                     <label th:text="#{msg.city.client}">Ciudad</label>
+                    <ul th:if="${#fields.hasErrors('ciudad')}">
+                        <li th:each="err : ${#fields.errors('ciudad')}" th:text="${err}" class="error"></li>
+                    </ul>
                 </div>
                 <div class="basis-1/2">
                     <input class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight" th:field="*{ciudad}"/>
@@ -68,13 +80,16 @@
             <div class="flex flex-row my-0.5">
                 <div class="basis-1/2">
                     <label th:text="#{msg.category.client}">Categoria</label>
+                    <ul th:if="${#fields.hasErrors('categoria')}">
+                        <li th:each="err : ${#fields.errors('categoria')}" th:text="${err}" class="error"></li>
+                    </ul>
                 </div>
                 <div class="basis-1/2">
                     <input class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight" th:field="*{categoria}"/>
                 </div>
             </div>
         </div>
-        </div>
+
     </form>
 </div>
 </body>

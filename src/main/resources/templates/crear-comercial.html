@@ -16,51 +16,47 @@
     </style>
 </head>
 <body>
-<div class="clearfix">
-    <form action="#" th:action="@{/comercial/crear}" th:object="${comercial}" method="post">
 
-        <div>
-            <h1>Crear Comercial</h1>
-        </div>
+<div class="container mt-5">
+    <form th:action="@{/comercial/crear}" th:object="${comercial}" method="post">
+        <h1 class="text-center mb-4">Crear Comercial</h1>
 
-        <div class="clearfix">
-            <label for="nombre" th:text="#{msg.name.seller}">Nombre</label>
-            <input id="nombre" th:field="*{nombre}" type="text" />
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" th:field="*{nombre}" class="form-control" />
             <ul th:if="${#fields.hasErrors('nombre')}">
                 <li th:each="err : ${#fields.errors('nombre')}" th:text="${err}" class="error"></li>
             </ul>
-            <br>
-            <br>
-
-            <label for="apellido1" th:text="#{msg.firstSurname.seller}">Primer apellido</label>
-            <input id="apellido1" th:field="*{apellido1}" type="text" />
+        </div>
+        <br><br>
+        <div class="form-group">
+            <label for="apellido1">Primer apellido</label>
+            <input id="apellido1" th:field="*{apellido1}" type="text" class="form-control" />
             <ul th:if="${#fields.hasErrors('apellido1')}">
                 <li th:each="err : ${#fields.errors('apellido1')}" th:text="${err}" class="error"></li>
             </ul>
-            <br>
-            <br>
-
-
-            <label for="apellido2" th:text="#{msg.secondSurname.seller}">Segundo apellido</label>
-            <input id="apellido2" th:field="*{apellido2}" type="text" />
+        </div>
+        <br><br>
+        <div class="form-group">
+            <label for="apellido2">Segundo apellido</label>
+            <input id="apellido2" th:field="*{apellido2}" type="text" class="form-control" />
             <ul th:if="${#fields.hasErrors('apellido2')}">
                 <li th:each="err : ${#fields.errors('apellido2')}" th:text="${err}" class="error"></li>
             </ul>
-            <br>
-            <br>
-
-            <label for="ciudad" th:text="#{msg.comision.seller}">Comision</label>
-            <input id="ciudad" th:field="*{comision}" type="text" />
+        </div>
+        <br><br>
+        <div class="form-group">
+            <label for="comision">Comision</label>
+            <input id="comision" th:field="*{comision}" type="text" class="form-control" />
             <ul th:if="${#fields.hasErrors('comision')}">
                 <li th:each="err : ${#fields.errors('comision')}" th:text="${err}" class="error"></li>
             </ul>
-            <br>
-            <br>
-
-            <div>
-                <button>Guardar</button>
-            </div>
         </div>
+        <br><br>
+        <div>
+            <button>Guardar</button>
+        </div>
+
     </form>
 </div>
 </body>

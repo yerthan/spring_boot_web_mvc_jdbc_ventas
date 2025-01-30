@@ -1,5 +1,7 @@
 package org.iesvdm.modelo;
 
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -26,6 +28,9 @@ public class Comercial {
 	private String apellido1;
 
 	private String apellido2;
+
+	@DecimalMax(value = "0.276", inclusive = true)
+	@DecimalMin(value="0.946", inclusive = true)
 	private BigDecimal comision;
 	
 }

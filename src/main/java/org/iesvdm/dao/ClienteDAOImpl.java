@@ -184,7 +184,7 @@ public class ClienteDAOImpl implements ClienteDAO {
                 """;
 		return  jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ClienteDTO.class), id);
 
-		//return null;
+
 	}
 
 }
