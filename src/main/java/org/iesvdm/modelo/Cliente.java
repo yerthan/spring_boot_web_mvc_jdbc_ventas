@@ -38,6 +38,7 @@ public class Cliente {
 
 	@NotEmpty(message = "El correo electrónico no puede estar vacío")
 	@Email(message = "El correo electrónico debe tener un formato válido")
+	@Email(message = "Formato de email incorrecto", regexp="^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\\.[a-zA-Z.]{2,5}")
 	private String correo;
 	
 }
